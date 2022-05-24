@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  mysql:
+    build: ./mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql-sample:/var/lib/mysql
+      - ./mysql/initdb.d:/docker-entrypoint-initdb.d
+      - ./mysql/users.csv:/var/lib/mysql-files/users.csv
+      - ./mysql/posts.csv:/var/lib/mysql-files/posts.csv
+    ports:
+      - 3306:3306
+
+volumes:
+  mysql-sample:
