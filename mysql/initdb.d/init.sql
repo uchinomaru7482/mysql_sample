@@ -19,5 +19,6 @@ CREATE TABLE `posts` (
   `deleted_at` DATETIME NULL DEFAULT NULL,
   `user_id` BIGINT(20) UNSIGNED NOT NULL,
   `content` VARCHAR(191) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
