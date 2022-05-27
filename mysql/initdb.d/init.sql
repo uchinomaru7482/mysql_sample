@@ -8,6 +8,8 @@ CREATE TABLE `users` (
   `deleted_at` DATETIME NULL DEFAULT NULL,
   `name` VARCHAR(191) NOT NULL,
   `email` VARCHAR(191) NOT NULL,
+  `landline_phone` VARCHAR(20) DEFAULT NULL,
+  `mobile_phone` VARCHAR(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `name_index` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

@@ -68,4 +68,20 @@ ON UPDATEで更新時の挙動を定義できる
 新しいユーザを登録した直後に  
 SELECT LAST_INSERT_ID()  
 を実行すると登録したユーザのIDが返ってくる  
-したがって、IDを指定してINSERTした場合はAUTO INCREMENTが働かないので、LAST_INSERT_IDの値は変わらない  
+したがって、IDを指定してINSERTした場合はAUTO INCREMENTが働かないので、LAST_INSERT_IDの値は変わらない 
+
+### CHECK制約
+`status` INT(10) NOT NULL CHECK (0 < `status` AND `status` <= 3)  
+等でカラムの値を制限することができるが、MySQL8.0.16で追加された機能みたいなので、本環境では動作まで確認できない  
+
+### パーティショニング
+テーブルを分割する  
+テーブルは物理的に分割されているが、あたかも1つのテーブルであるかのように扱うことができる
+パーティションではなく、本当に別テーブルを定義すると、外部キー制約や、疑似キーがうまく機能しなくなる
+データ量が多くなってきた時にパフォーマンスの向上が見込める
+ビューと変わらないかと思ったが、ビューはテーブルの実体を持たないので、パフォーマンスは向上しない？
+
+### COALESCE
+引数に指定したもののうち、NULLでない最初の値を返す関数
+SELECT id, name, COALESCE(landline_phone, mobile_phone, 'unregistered') FROM users;
+mobile_phoneのみ登録している場合はmobile_phoneの値を返し、何も登録していない場合はunregisteredを返す
